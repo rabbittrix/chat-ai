@@ -8,8 +8,38 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#7C3AED",
-        secondary: "#6D28D9",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary: "var(--primary)",
+        "primary-dark": "var(--primary-dark)",
+        secondary: "var(--secondary)",
+      },
+      fontFamily: {
+        sans: [
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+      },
+      animation: {
+        "gradient-xy": "gradient-xy 15s ease infinite",
+      },
+      keyframes: {
+        "gradient-xy": {
+          "0%, 100%": {
+            "background-size": "400% 400%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+        },
       },
     },
   },

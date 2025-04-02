@@ -26,6 +26,11 @@ export default function Register() {
       return;
     }
 
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -47,7 +52,7 @@ export default function Register() {
         throw new Error(data.error || "Registration failed");
       }
 
-      router.push("/dashboard");
+      router.push("/login");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
@@ -70,18 +75,18 @@ export default function Register() {
           </Link>
           <h2 className="text-3xl font-bold text-white">Create your account</h2>
           <p className="mt-2 text-sm text-[#ffffffcc]">
-            Join us to start generating documents
+            Join us and start creating amazing documents
           </p>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-5">
+          <div className="space-y-4">
             <div>
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-white mb-2"
               >
-                Full name
+                Full Name
               </label>
               <div className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[#7C3AED] via-[#C084FC] to-[#7C3AED] rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
@@ -116,7 +121,7 @@ export default function Register() {
                   autoComplete="email"
                   required
                   className="relative block w-full px-3 py-2 border-2 border-[#2a2a5f] placeholder-[#ffffff66] text-white bg-[#1a1a3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent sm:text-sm"
-                  placeholder="Enter your email address"
+                  placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -149,7 +154,7 @@ export default function Register() {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-white mb-2"
               >
-                Confirm password
+                Confirm Password
               </label>
               <div className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[#7C3AED] via-[#C084FC] to-[#7C3AED] rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
