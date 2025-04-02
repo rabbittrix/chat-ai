@@ -6,11 +6,13 @@ import Link from "next/link";
 import Image from "next/image";
 import PasswordInput from "@/components/PasswordInput";
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,26 +20,36 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+        throw new Error(data.error || "Registration failed");
       }
 
       router.push("/dashboard");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+      setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -56,14 +68,38 @@ export default function Login() {
               className="h-10 w-auto"
             />
           </Link>
-          <h2 className="text-3xl font-bold text-white">Welcome back</h2>
+          <h2 className="text-3xl font-bold text-white">Create your account</h2>
           <p className="mt-2 text-sm text-[#ffffffcc]">
-            Please sign in to your account
+            Join us to start generating documents
           </p>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+          <div className="space-y-5">
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-white mb-2"
+              >
+                Full name
+              </label>
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#7C3AED] via-[#C084FC] to-[#7C3AED] rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  className="relative block w-full px-3 py-2 border-2 border-[#2a2a5f] placeholder-[#ffffff66] text-white bg-[#1a1a3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent sm:text-sm"
+                  placeholder="Enter your full name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+
             <div>
               <label
                 htmlFor="email"
@@ -80,7 +116,7 @@ export default function Login() {
                   autoComplete="email"
                   required
                   className="relative block w-full px-3 py-2 border-2 border-[#2a2a5f] placeholder-[#ffffff66] text-white bg-[#1a1a3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Enter your email address"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -88,6 +124,7 @@ export default function Login() {
                 />
               </div>
             </div>
+
             <div>
               <label
                 htmlFor="password"
@@ -102,7 +139,29 @@ export default function Login() {
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
-                  placeholder="Enter your password"
+                  placeholder="Create a password"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-white mb-2"
+              >
+                Confirm password
+              </label>
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#7C3AED] via-[#C084FC] to-[#7C3AED] rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
+                <PasswordInput
+                  value={formData.confirmPassword}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                  placeholder="Confirm your password"
                 />
               </div>
             </div>
@@ -112,32 +171,6 @@ export default function Login() {
             <div className="text-red-500 text-sm text-center">{error}</div>
           )}
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-[#7C3AED] bg-[#1a1a3f] border-[#ffffff1a] rounded focus:ring-[#7C3AED]"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-[#ffffffcc]"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <Link
-                href="/forgot-password"
-                className="font-medium text-[#7C3AED] hover:text-[#6D28D9]"
-              >
-                Forgot your password?
-              </Link>
-            </div>
-          </div>
-
           <div>
             <button
               type="submit"
@@ -146,19 +179,19 @@ export default function Login() {
             >
               <div className="absolute -inset-0.5 bg-gradient-to-r from-[#7C3AED] via-[#C084FC] to-[#7C3AED] rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
               <div className="relative w-full flex justify-center py-2 px-4 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
-                {loading ? "Signing in..." : "Sign in"}
+                {loading ? "Creating account..." : "Create account"}
               </div>
             </button>
           </div>
 
           <div className="text-center">
             <p className="text-sm text-[#ffffffcc]">
-              Don&apos;t have an account?{" "}
+              Already have an account?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="font-medium text-[#7C3AED] hover:text-[#6D28D9]"
               >
-                Sign up for free
+                Sign in
               </Link>
             </p>
           </div>

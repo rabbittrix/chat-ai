@@ -200,10 +200,10 @@ export default function Features() {
             technology to create professional documents.
           </p>
           <Link
-            href="/signup"
-            className="inline-flex items-center justify-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-8 py-4 rounded-lg text-lg font-medium transition-colors duration-200"
+            href="/register"
+            className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-6 py-3 rounded-lg text-lg font-medium transition-colors"
           >
-            Get Started Free
+            Get Started for Free
           </Link>
         </div>
       </div>

@@ -51,10 +51,10 @@ export default function Navbar() {
               Log In
             </Link>
             <Link
-              href="/signup"
-              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+              href="/register"
+              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2 rounded-lg transition-colors"
             >
-              Get Started for Free
+              Sign Up
             </Link>
           </div>
         </div>

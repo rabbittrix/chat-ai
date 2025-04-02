@@ -137,7 +137,7 @@ export default function Pricing() {
               ))}
             </ul>
             <Link
-              href="/signup"
+              href="/register"
               className="block w-full text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white py-3 rounded-lg transition-colors duration-200"
             >
               Start Free Trial
@@ -183,7 +183,7 @@ export default function Pricing() {
               ))}
             </ul>
             <Link
-              href="/signup"
+              href="/register"
               className="block w-full text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white py-3 rounded-lg transition-colors duration-200"
             >
               Choose Basic
@@ -239,7 +239,7 @@ export default function Pricing() {
               ))}
             </ul>
             <Link
-              href="/signup"
+              href="/register"
               className="block w-full text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white py-3 rounded-lg transition-colors duration-200"
             >
               Choose Professional
@@ -285,7 +285,7 @@ export default function Pricing() {
               ))}
             </ul>
             <Link
-              href="/signup"
+              href="/register"
               className="block w-full text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white py-3 rounded-lg transition-colors duration-200"
             >
               Contact Sales

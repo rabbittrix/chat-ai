@@ -12,8 +12,8 @@ export default function Home() {
           Use our AI to generate professional customized documents
         </p>
         <Link
-          href="/signup"
-          className="inline-flex items-center justify-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-6 py-3 rounded-lg text-base font-medium transition-colors duration-200"
+          href="/register"
+          className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-6 py-3 rounded-lg text-lg font-medium transition-colors"
         >
           Get Started for Free
         </Link>

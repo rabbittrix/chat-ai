@@ -24,17 +24,17 @@ export default function PasswordInput({
         value={value}
         onChange={onChange}
         required={required}
-        className="appearance-none relative block w-full px-3 py-2 border border-[#ffffff1a] bg-[#1a1a3f] placeholder-[#ffffff80] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent pr-10"
+        className="relative block w-full px-3 py-2 border-2 border-[#2a2a5f] placeholder-[#ffffff66] text-white bg-[#1a1a3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent pr-10 sm:text-sm"
         placeholder={placeholder}
       />
       <button
         type="button"
-        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+        className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#ffffffcc] hover:text-white transition-colors"
         onClick={() => setShowPassword(!showPassword)}
       >
         {showPassword ? (
           <svg
-            className="h-5 w-5 text-[#ffffffcc] hover:text-white transition-colors"
+            className="h-5 w-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ export default function PasswordInput({
           </svg>
         ) : (
           <svg
-            className="h-5 w-5 text-[#ffffffcc] hover:text-white transition-colors"
+            className="h-5 w-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
