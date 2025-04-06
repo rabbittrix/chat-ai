@@ -75,7 +75,7 @@ export default function Dashboard() {
             </h2>
             <div className="space-y-4">
               <Link
-                href="/templates"
+                href="/doc-templates"
                 className="block w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2 rounded-lg text-center transition-colors"
               >
                 Browse Templates

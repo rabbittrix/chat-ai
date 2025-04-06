@@ -29,8 +29,8 @@ export default function Navbar() {
               Features
             </Link>
             <Link
-              href="/templates"
-              className="text-[#ffffffcc] hover:text-white text-sm font-medium transition-colors duration-200"
+              href="/doc-templates"
+              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Templates
             </Link>

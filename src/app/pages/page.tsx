@@ -5,7 +5,7 @@ import {
   templates,
   getTemplatesByCategory,
   getTemplatesByTags,
-} from "@/templates";
+} from "@/doc-templates";
 import { Template, TemplateCategory } from "@/types/templates";
 import Link from "next/link";
 
@@ -90,7 +90,7 @@ export default function TemplatesPage() {
               </div>
               <div className="flex justify-between items-center">
                 <Link
-                  href={`/templates/${template.id}`}
+                  href={`/doc-templates/${template.id}`}
                   className="text-[#7C3AED] hover:text-[#6D28D9] font-medium"
                 >
                   Preview

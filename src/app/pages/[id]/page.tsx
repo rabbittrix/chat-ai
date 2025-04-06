@@ -2,7 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
-import { getTemplateById } from "@/templates";
+import { getTemplateById } from "@/doc-templates";
 import { Template } from "@/types/templates";
 
 export default function TemplatePreview({
@@ -20,7 +20,7 @@ export default function TemplatePreview({
   useEffect(() => {
     const loadedTemplate = getTemplateById(resolvedParams.id);
     if (!loadedTemplate) {
-      router.push("/templates");
+      router.push("/doc-templates");
       return;
     }
     setTemplate(loadedTemplate);
@@ -124,7 +124,7 @@ export default function TemplatePreview({
 
         <div className="text-center">
           <button
-            onClick={() => router.push("/templates")}
+            onClick={() => router.push("/doc-templates")}
             className="text-[#ffffffcc] hover:text-white"
           >
             ← Back to Templates

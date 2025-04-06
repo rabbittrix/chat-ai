@@ -1,40 +1,41 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getTemplateById } from "@/templates";
+import { getTemplateById } from "@/doc-templates";
 import { Template } from "@/types/templates";
 
-export default function TemplatePreview({
+export default function TemplateDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
   const router = useRouter();
   const [template, setTemplate] = useState<Template | null>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [typedContent, setTypedContent] = useState("");
-  const resolvedParams = use(params);
 
   useEffect(() => {
-    const loadedTemplate = getTemplateById(resolvedParams.id);
+    const loadedTemplate = getTemplateById(params.id);
     if (!loadedTemplate) {
       router.push("/doc-templates");
       return;
     }
     setTemplate(loadedTemplate);
-  }, [resolvedParams.id, router]);
+  }, [params.id, router]);
 
   useEffect(() => {
     if (
-      !template ||
+      !template?.content?.sections ||
       !isTyping ||
       currentSection >= template.content.sections.length
     )
       return;
 
     const section = template.content.sections[currentSection];
+    if (!section) return;
+
     let charIndex = 0;
 
     const interval = setInterval(() => {
@@ -51,17 +52,32 @@ export default function TemplatePreview({
   }, [template, currentSection, isTyping]);
 
   const handleNextSection = () => {
-    if (!template) return;
+    if (!template?.content?.sections) return;
 
     if (currentSection < template.content.sections.length - 1) {
       setCurrentSection((prev) => prev + 1);
       setIsTyping(true);
+      setTypedContent("");
     }
   };
 
   const handleUseTemplate = () => {
-    // TODO: Implement template usage logic
-    console.log("Using template:", template?.id);
+    if (!template) return;
+
+    // Store the template content in localStorage before redirecting
+    const templateData = {
+      title: template.title,
+      content: {
+        sections: template.content.sections.map((section) => ({
+          title: section.title,
+          content: section.content,
+        })),
+      },
+    };
+    localStorage.setItem("templateData", JSON.stringify(templateData));
+
+    // Redirect to edit page
+    router.push(`/doc-templates/${template.id}/edit`);
   };
 
   if (!template) {
@@ -71,6 +87,17 @@ export default function TemplatePreview({
       </div>
     );
   }
+
+  const currentSectionData = template.content?.sections?.[currentSection];
+  const getDefaultLabel = (
+    formFields: any[],
+    type: string,
+    componentLabel: string
+  ) => {
+    const existingFields = formFields.filter((f: any) => f.type === type);
+    const count = existingFields.length + 1;
+    return `${componentLabel} ${count}`;
+  };
 
   return (
     <main className="min-h-screen bg-[#0a0a1f] py-20">
@@ -95,7 +122,7 @@ export default function TemplatePreview({
         <div className="bg-[#1a1a3f] rounded-xl p-8 border border-[#ffffff1a] mb-8">
           <div className="mb-4">
             <h2 className="text-xl font-semibold text-white mb-2">
-              {template.content.sections[currentSection].title}
+              {currentSectionData?.title || "No title available"}
             </h2>
             <div className="h-px bg-[#ffffff1a] w-full"></div>
           </div>
@@ -108,27 +135,38 @@ export default function TemplatePreview({
           <div className="mt-8 flex justify-between items-center">
             <button
               onClick={handleNextSection}
-              disabled={currentSection >= template.content.sections.length - 1}
+              disabled={
+                !template.content?.sections ||
+                currentSection >= template.content.sections.length - 1
+              }
               className="text-[#7C3AED] hover:text-[#6D28D9] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next Section →
             </button>
             <button
               onClick={handleUseTemplate}
-              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-6 py-2 rounded-lg transition-colors duration-200"
+              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-8 py-3 rounded-full text-lg font-medium transition-colors duration-200"
             >
               Use This Template
             </button>
           </div>
         </div>
 
-        <div className="text-center">
-          <button
-            onClick={() => router.push("/doc-templates")}
-            className="text-[#ffffffcc] hover:text-white"
-          >
-            ← Back to Templates
-          </button>
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              Back to Dashboard
+            </button>
+            <button
+              onClick={() => router.push("/doc-templates")}
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              Back to Templates
+            </button>
+          </div>
         </div>
       </div>
     </main>

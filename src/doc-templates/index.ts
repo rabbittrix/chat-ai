@@ -11,14 +11,11 @@ import { devopsEngineerTemplate } from "./resume/devops-engineer";
 import { frontendDeveloperTemplate } from "./resume/frontend-developer";
 import { backendDeveloperTemplate } from "./resume/backend-developer";
 import { serviceAgreementTemplate } from "./legal/service-agreement";
-import { investmentAgreementTemplate } from "./financial/investment-agreement";
-import { ventureCapitalTermSheetTemplate } from "./financial/venture-capital-term-sheet";
 import { businessPlanTemplate } from "./business/business-plan";
 import { nonDisclosureAgreementTemplate } from "./legal/non-disclosure-agreement";
 import { employmentAgreementTemplate } from "./legal/employment-agreement";
 import { commercialLeaseAgreementTemplate } from "./legal/commercial-lease-agreement";
 import { purchaseAgreementTemplate } from "./legal/purchase-agreement";
-import { partnershipAgreementTemplate } from "./financial/partnership-agreement";
 import { independentContractorAgreementTemplate } from "./legal/independent-contractor-agreement";
 import { softwareLicenseAgreementTemplate } from "./legal/software-license-agreement";
 import { termsOfServiceTemplate } from "./legal/terms-of-service";
@@ -28,20 +25,7 @@ import { consultingAgreementTemplate } from "./legal/consulting-agreement";
 import { distributionAgreementTemplate } from "./legal/distribution-agreement";
 import { franchiseAgreementTemplate } from "./legal/franchise-agreement";
 import { jointVentureAgreementTemplate } from "./legal/joint-venture-agreement";
-import { bondAgreementTemplate } from "./financial/bond-agreement";
-import { promissoryNoteTemplate } from "./financial/promissory-note";
-import { stockPurchaseAgreementTemplate } from "./financial/stock-purchase-agreement";
-import { convertibleNoteAgreementTemplate } from "./financial/convertible-note-agreement";
-import { subscriptionAgreementTemplate } from "./financial/subscription-agreement";
-import { assetPurchaseAgreementTemplate } from "./financial/asset-purchase-agreement";
-import { creditAgreementTemplate } from "./financial/credit-agreement";
-import { mortgageAgreementTemplate } from "./financial/mortgage-agreement";
-import { shareholdersAgreementTemplate } from "./financial/shareholders-agreement";
-import { mergerAgreementTemplate } from "./financial/merger-agreement";
-import { optionAgreementTemplate } from "./financial/option-agreement";
-import { warrantAgreementTemplate } from "./financial/warrant-agreement";
-import { securityAgreementTemplate } from "./financial/security-agreement";
-import { pledgeAgreementTemplate } from "./financial/pledge-agreement";
+import { financialTemplates } from "./financial/generate-templates";
 
 // Organize templates by category
 export const templates: TemplateCollection = {
@@ -82,7 +66,6 @@ export const templates: TemplateCollection = {
     employmentAgreementTemplate,
     commercialLeaseAgreementTemplate,
     purchaseAgreementTemplate,
-    partnershipAgreementTemplate,
     independentContractorAgreementTemplate,
     softwareLicenseAgreementTemplate,
     termsOfServiceTemplate,
@@ -104,33 +87,7 @@ export const templates: TemplateCollection = {
     // - Construction Contract
     // ... até completar 50
   ],
-  financial: [
-    pledgeAgreementTemplate,
-    securityAgreementTemplate,
-    mergerAgreementTemplate,
-    shareholdersAgreementTemplate,
-    investmentAgreementTemplate,
-    mortgageAgreementTemplate,
-    creditAgreementTemplate,
-    assetPurchaseAgreementTemplate,
-    ventureCapitalTermSheetTemplate,
-    bondAgreementTemplate,
-    promissoryNoteTemplate,
-    stockPurchaseAgreementTemplate,
-    convertibleNoteAgreementTemplate,
-    subscriptionAgreementTemplate,
-    partnershipAgreementTemplate,
-    optionAgreementTemplate,
-    warrantAgreementTemplate,
-    // TODO: Add more financial templates
-    // Next financial templates to create:
-    // - Merger Agreement
-    // - Option Agreement
-    // - Warrant Agreement
-    // - Security Agreement
-    // - Pledge Agreement
-    // ... até completar 50
-  ],
+  financial: financialTemplates,
   business: [
     businessPlanTemplate,
     // TODO: Add more business templates
